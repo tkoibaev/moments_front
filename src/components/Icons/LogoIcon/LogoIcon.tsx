@@ -1,7 +1,7 @@
 import * as React from "react"
 import { IconProps } from "../Icon"
 
-const RedirectArrow: React.FC<IconProps> = ({
+const LogoIcon: React.FC<IconProps> = ({
   className,
   color,
   width,
@@ -10,11 +10,11 @@ const RedirectArrow: React.FC<IconProps> = ({
 }) => {
   return (
     <svg
-      viewBox="0 0 310 310"
+      viewBox="0 0 297 297"
       onClick={onClick}
       color={color}
-      width={width ? width : 100}
-      height={height ? height : 100}
+      width={width ? width : 50}
+      height={height ? height : 50}
       //   className={classes}
     >
       <g>
@@ -85,4 +85,4 @@ const RedirectArrow: React.FC<IconProps> = ({
     </svg>
   )
 }
-export default RedirectArrow
+export default LogoIcon

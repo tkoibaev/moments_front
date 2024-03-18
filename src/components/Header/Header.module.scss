@@ -1,12 +1,37 @@
 @import "../../styles/variables.scss";
 
 .header {
-  background-color: #afafaf;
   position: fixed;
+  border-right: 1px solid $strokes-color;
   height: 100vh;
-  width: 260px;
+  width: 280px;
 
   &__inner {
-    margin-top: 100px;
+    margin-top: 50px;
+    margin-left: 20px;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  &__nav {
+    margin-top: 70px;
+
+    li {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      p {
+        font-size: 24px;
+      }
+    }
   }
 }
