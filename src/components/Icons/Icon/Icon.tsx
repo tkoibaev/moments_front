@@ -8,6 +8,7 @@ export type IconProps = React.SVGAttributes<SVGElement> & {
   children?: React.ReactNode
   onClick?: () => void
   fill?: string
+  isActive?: boolean
 }
 
 const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({

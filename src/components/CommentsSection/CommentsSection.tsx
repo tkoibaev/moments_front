@@ -1,28 +1,31 @@
 import React from "react"
 import styles from "./CommentsSection.module.scss"
 import LikeIcon from "../../components/Icons/LikeIcon"
-
-interface Comment {
-  id: number
-  author: string
-  text: string
-  date: string
-}
+import { Link } from "react-router-dom"
+import { Comment } from "../../types"
+import DateTag from "../../components/DateTag"
+import UserLogin from "../../components/UserLogin"
 
 interface CommentsSectionProps {
   comments: Comment[]
+  onMoreClick?: () => void
+  showAll?: boolean
 }
 
-const CommentsSection: React.FC<CommentsSectionProps> = ({ comments }) => {
+const CommentsSection: React.FC<CommentsSectionProps> = ({
+  comments,
+  onMoreClick,
+  showAll,
+}) => {
   const displayedComments = comments.slice(0, 3)
   return (
     <div className={styles.section}>
-      {comments.length > 3 ? (
+      {comments.length > 3 && !showAll ? (
         <div className="">
           {displayedComments.map((comment, index) => (
             <div className={styles.comment} key={index}>
               <div className={styles.comment__info}>
-                <h4>{comment.author}</h4> {comment.text}
+                <UserLogin login={comment.author.login} /> {comment.text}
               </div>
               <div className={styles.comment__action}>
                 <p>{comment.date}</p>
@@ -30,16 +33,18 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ comments }) => {
               </div>
             </div>
           ))}
-          <div className={styles.comment__more}>Посмотреть все</div>
+          <div onClick={onMoreClick} className={styles.comment__more}>
+            Посмотреть все
+          </div>
         </div>
       ) : (
         comments.map((comment, index) => (
           <div className={styles.comment} key={index}>
             <div className={styles.comment__info}>
-              <h4>{comment.author}</h4> {comment.text}
+              <UserLogin login={comment.author.login} /> {comment.text}
             </div>
             <div className={styles.comment__action}>
-              <p>{comment.date}</p>
+              <DateTag date={comment.date} />
               <LikeIcon width={25} height={25} />
             </div>
           </div>

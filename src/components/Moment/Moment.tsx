@@ -1,81 +1,93 @@
-import React from "react"
+import React, { useState } from "react"
 import styles from "./Moment.module.scss"
 import profile from "../../assets/mockImages/mockProfile.jpg"
 import LikeIcon from "../../components/Icons/LikeIcon"
 import CommentIcon from "../../components/Icons/CommentIcon"
 import CommentsSection from "../../components/CommentsSection"
+import { Moment as MomentType } from "types"
+import { Link } from "react-router-dom"
+import ModalWindow from "../../components/ModalWindow"
+import ModalMoment from "../../components/ModalMoment"
+import { CAvatar } from "@coreui/react"
+import Input from "../../components/Input"
+import AddCommentIcon from "../../components/Icons/AddCommentIcon"
+import AvatarComponent from "../../components/AvatarComponent"
+import UserLogin from "../../components/UserLogin"
+import DateTag from "../../components/DateTag"
+import UsersList from "../../components/UsersList"
 
-type Props = {}
-
-const mockMoment = {
-  id: 1,
-  author: {
-    id: 1,
-    name: "somebody",
-    image: profile,
-  },
-  image: profile,
-  date: "1 year ago",
-  description:
-    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores laboriosa at omnis autem, ab, error minus voluptatum voluptate fugit accusamus impedit unde labore tempore saepe vitae similique fuga harum asperiores!",
-  comments: [
-    {
-      id: 1,
-      author: "someone",
-      text: "lalalalalala llaalalla",
-      date: "1h",
-    },
-    {
-      id: 2,
-      author: "someone",
-      text: "Lorem, ipsum dolor sit amet consectetur. Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
-      date: "1h",
-    },
-    {
-      id: 3,
-      author: "someone",
-      text: "lalalalalalallaalalla",
-      date: "1h",
-    },
-    {
-      id: 3,
-      author: "someone",
-      text: "lalalalalalallaalalla  lalalalalalallaalalla lalalalalalallaalalla",
-      date: "1h",
-    },
-    {
-      id: 3,
-      author: "someone",
-      text: "lalalalalalallaalalla lalalalalalallaalalla lalalalalalallaalalla",
-      date: "1h",
-    },
-  ],
+interface MomentProps {
+  moment: MomentType
 }
 
-const Moment = (props: Props) => {
+const Moment: React.FC<MomentProps> = ({ moment }) => {
+  const [isModally, setIsModally] = useState<boolean>(false)
+  const [isLikesOpen, setIsLikesOpen] = useState<boolean>(false)
+
+  const [inputValue, setInputValue] = useState("")
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value)
+  }
+
   return (
     <div className={styles.moment}>
-      <div className={styles.moment__header}>
-        <img src={mockMoment.author.image} alt="" />
-        <h3>{mockMoment.author.name}</h3>
-        <p>{mockMoment.date}</p>
-      </div>
+      <Link to={`/${moment.author.login}`}>
+        <div className={styles.moment__header}>
+          <AvatarComponent image={moment.author.avatar} />
+          <UserLogin login={moment.author.login} />
+          <DateTag date={moment.date} />
+        </div>
+      </Link>
       <div className={styles.moment__content}>
-        <img src={mockMoment.image} alt="" />
+        <img src={moment.image} alt="" />
       </div>
       <div className={styles.moment__actions}>
         <LikeIcon width={30} height={30} />
         <CommentIcon width={26} height={26} />
       </div>
+      <h4 style={{ cursor: "pointer" }} onClick={() => setIsLikesOpen(true)}>
+        {moment.likes.length} отметок "Нравится"
+      </h4>
       <div className={styles.moment__description}>
-        <p>
-          <span>{mockMoment.author.name}</span>
-          {mockMoment.description}
-        </p>
+        <UserLogin login={moment.author.login} />
+        {moment.description}
       </div>
       <div className={styles.moment__comments}>
-        <CommentsSection comments={mockMoment.comments} />
+        <CommentsSection
+          showAll={false}
+          onMoreClick={() => setIsModally(true)}
+          comments={moment.comments}
+        />
       </div>
+      <div className={styles.moment__adding}>
+        <Input
+          mode="add"
+          onChangeValue={handleInputChange}
+          value={inputValue}
+          placeholder="Оставьте комментарий"
+          searchValue={inputValue}
+        />
+        <AddCommentIcon width={30} height={30} />
+      </div>
+
+      <ModalWindow
+        handleBackdropClick={() => {
+          setIsModally(false)
+        }}
+        active={isModally}
+      >
+        <ModalMoment moment={moment} />
+      </ModalWindow>
+
+      <ModalWindow
+        handleBackdropClick={() => {
+          setIsLikesOpen(false)
+        }}
+        active={isLikesOpen}
+      >
+        <UsersList users={moment.likes} title="Оценили" />
+      </ModalWindow>
     </div>
   )
 }

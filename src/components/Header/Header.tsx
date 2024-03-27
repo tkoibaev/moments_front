@@ -6,36 +6,80 @@ import LikeIcon from "../../components/Icons/LikeIcon"
 import SearchIcon from "../../components/Icons/SearchIcon"
 import AddIcon from "../../components/Icons/AddIcon"
 import ProfileIcon from "../../components/Icons/ProfileIcon"
+import { NavLink, useLocation } from "react-router-dom"
+import { AuthLogin } from "../../consts"
 
 const Header = () => {
+  const location = useLocation()
+  if (location.pathname === "/login") {
+    return null
+  }
   return (
     <div className={styles.header}>
       <div className={styles.header__inner}>
-        <div className={styles.header__logo}>
-          <h2>MOMENTS</h2>
-          <LogoIcon width={45} height={45} />
-        </div>
+        <NavLink to="/">
+          <div className={styles.header__logo}>
+            <h2>MOMENTS</h2>
+
+            <LogoIcon width={45} height={45} />
+          </div>
+        </NavLink>
 
         <ul className={styles.header__nav}>
           <li>
-            <HomeIcon width={35} height={35} />
-            <p>Моменты</p>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
+              <HomeIcon width={35} height={35} />
+              <p>Моменты</p>
+            </NavLink>
           </li>
           <li>
-            <SearchIcon width={35} height={35} />
-            <p>Поиск</p>
+            <NavLink
+              to="/search"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
+              <SearchIcon width={35} height={35} />
+              <p>Поиск</p>
+            </NavLink>
           </li>
           <li>
-            <LikeIcon width={35} height={35} />
-            <p>Уведомления</p>
+            <NavLink
+              to="/notifications"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
+              <LikeIcon width={35} height={35} />
+              <p>Уведомления</p>
+            </NavLink>
           </li>
           <li>
-            <AddIcon width={35} height={35} />
-            <p>Создать</p>
+            <NavLink
+              to="/create"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
+              <AddIcon width={35} height={35} />
+              <p>Создать</p>
+            </NavLink>
           </li>
           <li>
-            <ProfileIcon width={35} height={35} />
-            <p>Профиль</p>
+            <NavLink
+              to={`/${AuthLogin}`}
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
+              <ProfileIcon width={35} height={35} />
+              <p>Профиль</p>
+            </NavLink>
           </li>
         </ul>
       </div>

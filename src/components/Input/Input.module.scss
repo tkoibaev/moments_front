@@ -1,0 +1,29 @@
+@import "../../styles/variables.scss";
+
+.input {
+  width: 100%;
+  font-size: 16px;
+  &__block {
+    text-align: left;
+    width: 100%;
+    line-height: 28px;
+  }
+}
+
+.add {
+  border-bottom: 1px solid $brand-secondary-color;
+  transition: border-bottom 0.1s ease-in-out;
+  &:focus {
+    border-bottom: 2px solid $brand-color;
+  }
+}
+
+.search {
+  border: 1px solid $brand-color;
+  border-radius: 5px;
+  transition: border 0.1s ease-in-out;
+  padding: 3px 5px;
+  &:focus {
+    border: 2px solid $brand-color;
+  }
+}

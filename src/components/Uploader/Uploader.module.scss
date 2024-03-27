@@ -1,0 +1,70 @@
+@import "../../styles/variables.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  margin: 0 auto;
+  border: 2px solid $brand-color;
+  padding: 30px 40px;
+  border-radius: 10px;
+
+  &__file {
+    &-input {
+    }
+    &-preview {
+      width: 100%;
+    }
+  }
+}
+
+.input-file {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+
+  &-icon {
+    background-color: #99c9ec;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-text {
+    font-size: 24px;
+  }
+  &-text {
+    padding: 0 10px;
+    line-height: 40px;
+    display: inline-block;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 0;
+    height: 0;
+  }
+}
+
+.input-text {
+  width: 80%;
+
+  input {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,10 @@
+.login {
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

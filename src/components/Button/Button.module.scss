@@ -1,0 +1,51 @@
+@import "../../styles/variables.scss";
+
+.button {
+  padding: 10px 30px;
+  border-radius: 7px;
+  font-family: "Cormorant", "Nunito", sans-serif;
+  transition: background-color 0.1s linear;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &-active {
+    font-weight: 600;
+    background-color: $brand-color;
+    color: #fff;
+    &:hover {
+      background-color: $brand-color-hover;
+    }
+  }
+  &-passive {
+    font-weight: 600;
+    background-color: $brand-secondary-color;
+    color: #000;
+    &:hover {
+      background-color: $brand-secondary-color-hover;
+    }
+  }
+
+  &-light {
+    font-weight: 600;
+    background-color: #fff;
+    color: $brand-color;
+    &:hover {
+      background-color: $brand-secondary-color-hover;
+    }
+  }
+
+  &__text {
+    display: block;
+  }
+
+  &:disabled {
+    background-color: $brand-color-disabled;
+    color: $font-secondary-color;
+    border: none;
+    cursor: default;
+    &:hover {
+      transform: none;
+    }
+  }
+}
