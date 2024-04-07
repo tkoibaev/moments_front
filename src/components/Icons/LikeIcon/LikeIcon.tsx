@@ -7,6 +7,7 @@ const LikeIcon: React.FC<IconProps> = ({
   width,
   height,
   onClick,
+  isActive,
 }) => {
   return (
     <svg
@@ -22,8 +23,8 @@ const LikeIcon: React.FC<IconProps> = ({
         style={{
           clipRule: "evenodd",
           display: "inline",
-          fill: "none",
-          stroke: "#000000",
+          fill: isActive ? "red" : "none",
+          stroke: isActive ? "red" : "#000000",
           strokeWidth: 12,
           strokeLinecap: "round",
           strokeLinejoin: "round",

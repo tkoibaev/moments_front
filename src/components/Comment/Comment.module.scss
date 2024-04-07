@@ -1,0 +1,29 @@
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  &__info {
+    span {
+      font-size: 18px;
+    }
+  }
+
+  &__action {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+}
+
+@include mobile {
+  .comment {
+    &__info {
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+}

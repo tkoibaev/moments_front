@@ -89,7 +89,7 @@ export const Moments = [
     id: 2,
     author: Users[2],
     image: moment2,
-    date: "2hs",
+    date: "2h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [
@@ -126,7 +126,7 @@ export const Moments = [
     id: 3,
     author: Users[3],
     image: moment3,
-    date: "3hs",
+    date: "3h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [
@@ -163,7 +163,7 @@ export const Moments = [
     id: 4,
     author: Users[4],
     image: moment4,
-    date: "4hs",
+    date: "4h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [
@@ -212,7 +212,7 @@ export const Moments = [
     id: 5,
     author: Users[1],
     image: moment5,
-    date: "5hs",
+    date: "5h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [
@@ -220,6 +220,90 @@ export const Moments = [
         id: 1,
         author: Users[3],
         text: "Комментарий 1 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 2,
+        author: Users[4],
+        text: "Комментарий 2 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 3,
+        author: Users[1],
+        text: "Комментарий 3 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 4,
+        author: Users[0],
+        text: "Комментарий 4 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 2,
+        author: Users[4],
+        text: "Комментарий 2 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 3,
+        author: Users[1],
+        text: "Комментарий 3 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 4,
+        author: Users[0],
+        text: "Комментарий 4 к моменту 5 Комментарий 4 к моменту 5 Комментарий 4 к моменту 5 Комментарий 4 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 2,
+        author: Users[4],
+        text: "Комментарий 2 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 3,
+        author: Users[1],
+        text: "Комментарий 3 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 4,
+        author: Users[0],
+        text: "Комментарий 4 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 5,
+        author: Users[4],
+        text: "Комментарий 5 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 2,
+        author: Users[4],
+        text: "Комментарий 2 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 3,
+        author: Users[1],
+        text: "Комментарий 3 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 4,
+        author: Users[0],
+        text: "Комментарий 4 к моменту 5",
+        date: "30m",
+      },
+      {
+        id: 5,
+        author: Users[4],
+        text: "Комментарий 5 к моменту 5",
         date: "30m",
       },
       {
@@ -261,7 +345,7 @@ export const Moments = [
     id: 6,
     author: Users[2],
     image: moment6,
-    date: "6hs",
+    date: "6h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [
@@ -340,7 +424,7 @@ export const Moments = [
     id: 7,
     author: Users[3],
     image: moment7,
-    date: "7hs",
+    date: "7h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [
@@ -377,7 +461,7 @@ export const Moments = [
     id: 8,
     author: Users[4],
     image: moment8,
-    date: "8hs",
+    date: "8h",
     description:
       " Lorem ipsum dolor sit. Architecto assumenda explicabo libero placeat sapiente impedit sequi facere eveniet exercitationem id cumque praesentium quia eum, dolorem natus voluptates",
     comments: [

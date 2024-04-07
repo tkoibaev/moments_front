@@ -16,6 +16,7 @@ import UserLogin from "../../components/UserLogin"
 import DateTag from "../../components/DateTag"
 import UsersList from "../../components/UsersList"
 import TagComponent from "../../components/TagComponent"
+import Comment from "../../components/Comment"
 
 interface MomentProps {
   moment: MomentType
@@ -35,7 +36,10 @@ const Moment: React.FC<MomentProps> = ({ moment }) => {
     <div className={styles.moment}>
       <Link to={`/${moment.author.login}`}>
         <div className={styles.moment__header}>
-          <AvatarComponent image={moment.author.avatar} />
+          <AvatarComponent
+            className={styles.moment__header_avatar}
+            image={moment.author.avatar}
+          />
           <UserLogin login={moment.author.login} />
           <DateTag date={moment.date} />
         </div>
@@ -50,13 +54,12 @@ const Moment: React.FC<MomentProps> = ({ moment }) => {
       <h4 style={{ cursor: "pointer" }} onClick={() => setIsLikesOpen(true)}>
         {moment.likes.length} отметок "Нравится"
       </h4>
-      <div className={styles.moment__description}>
-        <UserLogin login={moment.author.login} />
-        {moment.description}{" "}
-        {moment.tags.map((tag) => (
-          <TagComponent tag={tag} />
-        ))}
-      </div>
+      <Comment
+        author={moment.author.login}
+        content={moment.description}
+        isDescription={true}
+        tags={moment.tags}
+      />
 
       <div className={styles.moment__comments}>
         <CommentsSection

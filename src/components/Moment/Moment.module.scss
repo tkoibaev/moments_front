@@ -1,4 +1,5 @@
 @import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 .moment {
   width: 100%;
@@ -6,24 +7,18 @@
   flex-direction: column;
   gap: 6px;
 
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   // border-bottom: 2px solid $strokes-color;
-  margin-top: 20px;
+  margin-top: 10px;
 
   &__header {
     width: 100%;
     display: flex;
     align-items: center;
 
-    &_image {
-      width: 50px;
-      height: 50px;
-      overflow: hidden;
-      border-radius: 50%;
-      margin-right: 10px;
-      img {
-        height: 150%;
-      }
+    &_avatar {
+      width: 60px;
+      height: 60px;
     }
 
     h3 {
@@ -47,5 +42,27 @@
 
   &__adding {
     display: flex;
+  }
+}
+
+@include mobile {
+  .moment {
+    &__header {
+      &_avatar {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}
+
+@include extraSmallMobile {
+  .moment {
+    &__header {
+      &_avatar {
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 }

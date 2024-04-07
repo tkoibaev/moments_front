@@ -1,5 +1,18 @@
 @import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 .date {
   color: $font-secondary-color;
+  font-size: 16px;
+}
+
+@include mobile {
+  .date {
+    font-size: 14px;
+  }
+}
+@include ultraSmallMobile {
+  .date {
+    font-size: 12px;
+  }
 }

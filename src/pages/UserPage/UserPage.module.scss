@@ -1,9 +1,10 @@
 @import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
 
 .page {
   padding-top: 30px;
   max-width: 630px;
-  width: 100%;
+  // width: 98%;
   margin: 0 auto;
 }
 
@@ -21,14 +22,9 @@
     display: flex;
     align-items: center;
 
-    &_image {
+    &_avatar {
       width: 200px;
       height: 200px;
-      overflow: hidden;
-      border-radius: 50%;
-      img {
-        height: 150%;
-      }
     }
 
     &_info {
@@ -55,5 +51,96 @@
     display: flex;
     align-items: start;
     justify-content: space-around;
+  }
+}
+
+@include mobile {
+  .profile {
+    &__main {
+      &_avatar {
+        width: 150px;
+        height: 150px;
+      }
+      &_info {
+        h1 {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}
+@include smallMobile {
+  .profile {
+    &__main {
+      &_avatar {
+        width: 130px;
+        height: 130px;
+      }
+      &_info {
+        ul {
+          gap: 10px;
+
+          li {
+            font-size: 14px;
+          }
+        }
+        h1 {
+          font-size: 24px;
+        }
+      }
+    }
+    &__description {
+      font-size: 14px;
+    }
+  }
+}
+@include extraSmallMobile {
+  .profile {
+    &__main {
+      &_avatar {
+        width: 90px;
+        height: 90px;
+      }
+      &_info {
+        ul {
+          gap: 10px;
+
+          li {
+            font-size: 14px;
+          }
+        }
+        h1 {
+          font-size: 20px;
+        }
+      }
+    }
+    &__description {
+      font-size: 14px;
+    }
+  }
+}
+@include ultraSmallMobile {
+  .profile {
+    &__main {
+      &_avatar {
+        width: 80px;
+        height: 80px;
+      }
+      &_info {
+        ul {
+          gap: 10px;
+
+          li {
+            font-size: 12px;
+          }
+        }
+        h1 {
+          font-size: 18px;
+        }
+      }
+    }
+    &__description {
+      font-size: 14px;
+    }
   }
 }

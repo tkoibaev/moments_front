@@ -18,7 +18,10 @@ const UsersList: React.FC<UserListProps> = ({ users, title }) => {
         {users &&
           users.map((user) => (
             <li className={styles.container__list_item}>
-              <AvatarComponent image={user.author.avatar} />
+              <AvatarComponent
+                className={styles.container__list_item_avatar}
+                image={user.author.avatar}
+              />
               <UserLogin login={user.author.login} />
               <DateTag date={user.date} />
             </li>

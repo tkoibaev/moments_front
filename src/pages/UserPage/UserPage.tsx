@@ -14,6 +14,7 @@ import { Profile } from "../../types"
 import { AuthLogin } from "../../consts"
 import ModalWindow from "../../components/ModalWindow"
 import UsersList from "../../components/UsersList"
+import AvatarComponent from "../../components/AvatarComponent"
 
 const UserPage = () => {
   const [active, setActive] = useState<"feed" | "grid">("grid")
@@ -38,15 +39,19 @@ const UserPage = () => {
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
-  }, [])
+  }, [pageInfo]) // !!! change logic
 
   return (
     <div className={styles.page}>
       <div className={styles.profile}>
         <div className={styles.profile__main}>
-          <div className={styles.profile__main_image}>
-            <img src={pageInfo?.avatar} alt="" />
-          </div>
+          {pageInfo?.avatar && (
+            <AvatarComponent
+              className={styles.profile__main_avatar}
+              image={pageInfo?.avatar}
+            />
+          )}
+
           <div className={styles.profile__main_info}>
             <h1>{pageInfo?.login}</h1>
             <ul className={styles.stats}>
@@ -93,14 +98,14 @@ const UserPage = () => {
           <GridIcon
             isActive={active == "grid"}
             onClick={() => setActive("grid")}
-            width={30}
-            height={30}
+            width={25}
+            height={25}
           />
           <FeedIcon
             isActive={active == "feed"}
             onClick={() => setActive("feed")}
-            width={30}
-            height={30}
+            width={25}
+            height={25}
           />
         </div>
         {active == "grid" && <MomentsGridList moments={pageInfo?.posts} />}
