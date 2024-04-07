@@ -8,14 +8,19 @@ import AddIcon from "../../components/Icons/AddIcon"
 import ProfileIcon from "../../components/Icons/ProfileIcon"
 import { NavLink, useLocation } from "react-router-dom"
 import { AuthLogin } from "../../consts"
+import clsx from "clsx"
 
-const Header = () => {
+export type HeaderProps = {
+  className: string
+}
+
+const Header: React.FC<HeaderProps> = ({ className }) => {
   const location = useLocation()
   if (location.pathname === "/login") {
     return null
   }
   return (
-    <div className={styles.header}>
+    <div className={clsx(styles["header"], className)}>
       <div className={styles.header__inner}>
         <NavLink to="/">
           <div className={styles.header__logo}>

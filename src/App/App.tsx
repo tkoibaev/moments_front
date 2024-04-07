@@ -1,4 +1,4 @@
-import "./App.scss"
+import styles from "./App.module.scss"
 import MomentsPage from "../pages/MomentsPage"
 import Header from "../components/Header"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
@@ -10,9 +10,9 @@ import SearchPage from "../pages/SearchPage"
 
 function App() {
   return (
-    <div className="app">
+    <div className={styles.app}>
       <BrowserRouter>
-        <Header />
+        <Header className={styles.header} />
         <Routes>
           <Route path="/" element={<MomentsPage />}></Route>
           <Route path="/:userLogin" element={<UserPage />} />
