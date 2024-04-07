@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import styles from "./SearchPage.module.scss"
 import { Moments } from "../../consts"
 import MomentsGridList from "../../components/MomentsGridList"
 import Input from "../../components/Input"
-import { useLocation, useSearchParams } from "react-router-dom"
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")

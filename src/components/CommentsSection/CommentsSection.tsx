@@ -1,10 +1,6 @@
 import React from "react"
 import styles from "./CommentsSection.module.scss"
-import LikeIcon from "../../components/Icons/LikeIcon"
-import { Link } from "react-router-dom"
 import { Comment as CommentType } from "../../types"
-import DateTag from "../../components/DateTag"
-import UserLogin from "../../components/UserLogin"
 import Comment from "../../components/Comment"
 
 interface CommentsSectionProps {

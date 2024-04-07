@@ -40,10 +40,8 @@ export interface Moment {
 
 export interface Profile {
   id: number
-  email: string
-  login: string
-  avatar: string
-  name: string
+  user: Author
+
   posts: Moment[]
   subscribers: {
     id: number

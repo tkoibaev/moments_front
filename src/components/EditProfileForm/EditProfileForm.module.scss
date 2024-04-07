@@ -1,0 +1,30 @@
+.form {
+  background-color: #fff;
+  max-width: 300px;
+  width: 80vw;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+
+  &__image {
+    position: relative;
+    &_preview {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+    &_edit {
+      cursor: pointer;
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+    }
+  }
+
+  &__submit {
+    margin-top: 10px;
+  }
+}

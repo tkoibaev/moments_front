@@ -2,7 +2,6 @@ import * as React from "react"
 import { IconProps } from "../Icon"
 
 const LikeIcon: React.FC<IconProps> = ({
-  className,
   color,
   width,
   height,

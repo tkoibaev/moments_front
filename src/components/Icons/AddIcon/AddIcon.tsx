@@ -7,15 +7,17 @@ const AddIcon: React.FC<IconProps> = ({
   width,
   height,
   onClick,
+  fill,
 }) => {
   return (
     <svg
+      className={className}
       viewBox="0 0 24 24"
       onClick={onClick}
       color={color}
       width={width ? width : 40}
       height={height ? height : 40}
-      fill="none"
+      fill={fill ? fill : "none"}
       //   className={classes}
     >
       <rect

@@ -1,4 +1,3 @@
-import React from "react"
 import styles from "./NotificationsPage.module.scss"
 import { Notifications } from "../../consts"
 import NotificationsList from "../../components/NotificationsList"

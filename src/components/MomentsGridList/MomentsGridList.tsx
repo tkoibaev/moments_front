@@ -1,10 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./MomentsGridList.module.scss"
 
-import Moment from "../../components/Moment"
 import { Moment as MomentsListType } from "types"
 import ModalWindow from "../../components/ModalWindow"
 import ModalMoment from "../../components/ModalMoment"
+import { useParams } from "react-router-dom"
 
 interface MomentsListProps {
   moments?: MomentsListType[]
@@ -13,6 +13,11 @@ interface MomentsListProps {
 const MomentsGridList: React.FC<MomentsListProps> = ({ moments }) => {
   const [isModally, setIsModally] = useState<boolean>(false)
   const [momentForClick, setMomentForClick] = useState<MomentsListType>()
+  const { userLogin } = useParams()
+
+  useEffect(() => {
+    setIsModally(false)
+  }, [userLogin])
 
   return (
     <>
@@ -30,7 +35,7 @@ const MomentsGridList: React.FC<MomentsListProps> = ({ moments }) => {
             />
           ))
         ) : (
-          <div>gecnjjjjjjjjjjjjjjjjjjjj</div>
+          <div>пусто</div>
         )}
       </div>
       <ModalWindow

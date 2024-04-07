@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect } from "react"
 import styles from "./Uploader.module.scss"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
-import AddIcon from "../../components/Icons/AddIcon"
 import PhotoIcon from "../../components/Icons/PhotoIcon"
 
 const Uploader = () => {
@@ -10,7 +9,6 @@ const Uploader = () => {
   const [tagValue, setTagValue] = useState<string>("")
   const [files, setFiles] = useState<FileList | null>(null)
   const [preview, setPreview] = useState<string | undefined>()
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleDescriptionInputChange = (value: string) => {
     setDescriptionValue(value)

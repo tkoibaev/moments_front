@@ -1,10 +1,7 @@
 import React from "react"
 import styles from "./NotificationsList.module.scss"
 import { Notification as NotificationType } from "../../types"
-import Button from "../../components/Button"
-import AvatarComponent from "../../components/AvatarComponent"
-import UserLogin from "../../components/UserLogin"
-import DateTag from "../../components/DateTag"
+
 import Notification from "../../components/Notification"
 
 export type NotificationsListProps = {

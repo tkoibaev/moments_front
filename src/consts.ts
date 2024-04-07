@@ -497,10 +497,8 @@ export const Moments = [
 
 export const MyPage = {
   id: 2,
-  email: "tkoibaev@gmail.com",
-  login: "tkoibaev",
-  avatar: profile1,
-  name: "Tamerlan Koibaev",
+  user: Users[0],
+
   posts: [Moments[1], Moments[2], Moments[3], Moments[5]],
   subscribers: [
     { id: 1, author: Users[1], date: "1h" },
@@ -520,10 +518,7 @@ export const MyPage = {
 
 export const VisitAuthor = {
   id: 2,
-  email: "aminakoi@gmail.com",
-  login: "aminka_vitaminka",
-  avatar: profile3,
-  name: "Amina Koibaeva",
+  user: Users[2],
   posts: [Moments[0], Moments[2], Moments[4]],
   subscribers: [
     { id: 1, author: Users[1], date: "1h" },

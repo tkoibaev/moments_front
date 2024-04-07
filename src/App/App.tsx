@@ -1,7 +1,7 @@
 import styles from "./App.module.scss"
 import MomentsPage from "../pages/MomentsPage"
 import Header from "../components/Header"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import UserPage from "../pages/UserPage"
 import AuthPage from "../pages/AuthPage"
 import AddMomentPage from "../pages/AddMomentPage"

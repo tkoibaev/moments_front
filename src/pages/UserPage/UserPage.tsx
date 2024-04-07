@@ -1,10 +1,8 @@
-import React, { useEffect, useLayoutEffect, useState } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 import styles from "./UserPage.module.scss"
 
-import mockImage from "../../assets/mockImages/mockProfile1.jpg"
 import MomentsList from "../../components/MomentsList"
 import Button from "../../components/Button"
-import profile2 from "../../assets/mockImages/mockProfile2.jpg"
 import MomentsGridList from "../../components/MomentsGridList"
 import GridIcon from "../../components/Icons/GridIcon"
 import FeedIcon from "../../components/Icons/FeedIcon"
@@ -15,6 +13,7 @@ import { AuthLogin } from "../../consts"
 import ModalWindow from "../../components/ModalWindow"
 import UsersList from "../../components/UsersList"
 import AvatarComponent from "../../components/AvatarComponent"
+import EditProfileForm from "../../components/EditProfileForm"
 
 const UserPage = () => {
   const [active, setActive] = useState<"feed" | "grid">("grid")
@@ -23,6 +22,7 @@ const UserPage = () => {
 
   const [isSubscribersOpened, setIsSubscribersOpened] = useState(false)
   const [isSubscriptionsOpened, setIsSubscriptionsOpened] = useState(false)
+  const [isEditsOpened, setIsEditsOpened] = useState(false)
 
   const { userLogin } = useParams()
 
@@ -33,6 +33,7 @@ const UserPage = () => {
       setPageInfo(MyPage)
       setIsMyPage(true)
     } else {
+      setIsMyPage(false)
       setPageInfo(VisitAuthor)
     }
   }, [userLogin])
@@ -45,15 +46,15 @@ const UserPage = () => {
     <div className={styles.page}>
       <div className={styles.profile}>
         <div className={styles.profile__main}>
-          {pageInfo?.avatar && (
+          {pageInfo?.user.avatar && (
             <AvatarComponent
               className={styles.profile__main_avatar}
-              image={pageInfo?.avatar}
+              image={pageInfo?.user.avatar}
             />
           )}
 
           <div className={styles.profile__main_info}>
-            <h1>{pageInfo?.login}</h1>
+            <h1>{pageInfo?.user.login}</h1>
             <ul className={styles.stats}>
               <li>
                 <span style={{ fontWeight: 600 }}>
@@ -85,7 +86,9 @@ const UserPage = () => {
         <div className={styles.profile__description}>{pageInfo?.about}</div>
         {isMyPage ? (
           <div className={styles.profile__action}>
-            <Button mode="passive">Редактировать</Button>
+            <Button onClick={() => setIsEditsOpened(true)} mode="passive">
+              Редактировать
+            </Button>
           </div>
         ) : (
           <div className={styles.profile__action}>
@@ -122,6 +125,12 @@ const UserPage = () => {
         handleBackdropClick={() => setIsSubscriptionsOpened(false)}
       >
         <UsersList users={pageInfo?.subscriptions} title="Подписки" />
+      </ModalWindow>
+      <ModalWindow
+        active={isEditsOpened}
+        handleBackdropClick={() => setIsEditsOpened(false)}
+      >
+        {pageInfo && <EditProfileForm user={pageInfo.user} />}
       </ModalWindow>
     </div>
   )
