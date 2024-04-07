@@ -1,11 +1,22 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styles from "./SearchPage.module.scss"
 import { Moments } from "../../consts"
 import MomentsGridList from "../../components/MomentsGridList"
 import Input from "../../components/Input"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
+  //   const [searchParams] = useSearchParams()
+  const queryParameters = new URLSearchParams(window.location.search)
+
+  useEffect(() => {
+    const tag = queryParameters.get("tag")
+    if (tag) {
+      setSearchValue(tag)
+    }
+    console.log(tag)
+  }, [])
 
   const handleSearchInputChange = (value: string) => {
     setSearchValue(value)

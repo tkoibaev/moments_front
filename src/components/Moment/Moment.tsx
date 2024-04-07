@@ -15,6 +15,7 @@ import AvatarComponent from "../../components/AvatarComponent"
 import UserLogin from "../../components/UserLogin"
 import DateTag from "../../components/DateTag"
 import UsersList from "../../components/UsersList"
+import TagComponent from "../../components/TagComponent"
 
 interface MomentProps {
   moment: MomentType
@@ -51,8 +52,12 @@ const Moment: React.FC<MomentProps> = ({ moment }) => {
       </h4>
       <div className={styles.moment__description}>
         <UserLogin login={moment.author.login} />
-        {moment.description}
+        {moment.description}{" "}
+        {moment.tags.map((tag) => (
+          <TagComponent tag={tag} />
+        ))}
       </div>
+
       <div className={styles.moment__comments}>
         <CommentsSection
           showAll={false}

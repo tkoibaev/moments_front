@@ -5,6 +5,11 @@ export interface Author {
   avatar: string
 }
 
+export interface Tag {
+  id: number
+  title: string
+}
+
 export interface Comment {
   id: number
   author: Author
@@ -30,6 +35,7 @@ export interface Moment {
     author: Author
     date: string
   }[]
+  tags: Tag[]
 }
 
 export interface Profile {

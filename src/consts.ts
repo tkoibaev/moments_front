@@ -79,6 +79,10 @@ export const Moments = [
       { id: 1, author: Users[4], date: "1h" },
       { id: 2, author: Users[3], date: "30m" },
     ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
+    ],
   },
   //   -----------------------------------------
   {
@@ -112,6 +116,10 @@ export const Moments = [
       { id: 1, author: Users[1], date: "1h" },
       { id: 2, author: Users[2], date: "30m" },
     ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
+    ],
   },
   //------------------------------------
   {
@@ -144,6 +152,10 @@ export const Moments = [
     likes: [
       { id: 1, author: Users[4], date: "1h" },
       { id: 2, author: Users[3], date: "30m" },
+    ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
     ],
   },
   //------------------------------
@@ -190,6 +202,10 @@ export const Moments = [
       { id: 1, author: Users[1], date: "1h" },
       { id: 2, author: Users[2], date: "30m" },
     ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
+    ],
   },
   //--------------------------
   {
@@ -235,6 +251,10 @@ export const Moments = [
       { id: 1, author: Users[3], date: "1h" },
       { id: 2, author: Users[4], date: "30m" },
     ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
+    ],
   },
   //-------------------------------
   {
@@ -275,10 +295,44 @@ export const Moments = [
         text: "Комментарий 5 к моменту 6",
         date: "30m",
       },
+      {
+        id: 4,
+        author: Users[4],
+        text: "Комментарий 4 к моменту 6",
+        date: "30m",
+      },
+      {
+        id: 5,
+        author: Users[1],
+        text: "Комментарий 5 к моменту 6",
+        date: "30m",
+      },
+      {
+        id: 5,
+        author: Users[1],
+        text: "Комментарий 5 к моменту 6",
+        date: "30m",
+      },
+      {
+        id: 5,
+        author: Users[1],
+        text: "Комментарий 5 к моменту 6",
+        date: "30m",
+      },
+      {
+        id: 5,
+        author: Users[1],
+        text: "Комментарий 5 к моменту 6",
+        date: "30m",
+      },
     ],
     likes: [
       { id: 1, author: Users[1], date: "1h" },
       { id: 2, author: Users[2], date: "30m" },
+    ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
     ],
   },
   //------------------------------
@@ -313,6 +367,10 @@ export const Moments = [
       { id: 1, author: Users[1], date: "1h" },
       { id: 2, author: Users[2], date: "30m" },
     ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
+    ],
   },
   //--------------------
   {
@@ -345,6 +403,10 @@ export const Moments = [
     likes: [
       { id: 1, author: Users[1], date: "1h" },
       { id: 2, author: Users[2], date: "30m" },
+    ],
+    tags: [
+      { id: 1, title: "природа" },
+      { id: 2, title: "горы" },
     ],
   },
 ]

@@ -14,7 +14,7 @@
 
   &__list {
     width: 100%;
-    overflow: scroll;
+    overflow-y: auto;
 
     &_item {
       height: 70px;

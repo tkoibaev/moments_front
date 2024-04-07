@@ -20,20 +20,18 @@ const ModalMoment: React.FC<MomentProps> = ({ moment }) => {
         <img src={moment.image} alt="" />
       </div>
       <div className={styles.moment__forum}>
-        <div style={{ overflow: "scroll", height: "80%" }}>
-          <div className={styles.moment__forum_description}>
-            <p>
-              <span>{moment.author.login}</span>
-              {moment.description}
-            </p>
-          </div>
-          <div className={styles.moment__forum_comments}>
-            <CommentsSection
-              showAll={true}
-              //   onMoreClick={() => setIsModally(true)}
-              comments={moment.comments}
-            />
-          </div>
+        <div className={styles.moment__forum_description}>
+          <p>
+            <span>{moment.author.login}</span>
+            {moment.description}
+          </p>
+        </div>
+        <div className={styles.moment__forum_comments}>
+          <CommentsSection
+            showAll={true}
+            //   onMoreClick={() => setIsModally(true)}
+            comments={moment.comments}
+          />
         </div>
 
         <div className={styles.moment__forum_actions}>
