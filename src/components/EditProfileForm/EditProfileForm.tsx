@@ -17,7 +17,7 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
   const [files, setFiles] = useState<FileList | null>(null)
   const [preview, setPreview] = useState<string | undefined>()
 
-  const fileInputRef = useRef<HTMLInputElement>(null) // Создаем ref для input
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleLoginInputChange = (value: string) => {
     setLoginValue(value)
@@ -52,12 +52,11 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
           accept="image/*"
           style={{ display: "none" }}
           onChange={handleAvatarChange}
-          ref={fileInputRef} // Присваиваем ref к input
+          ref={fileInputRef}
         />
         <AddIcon
           fill="#fff"
           onClick={() => {
-            // Вызываем click на input через ref
             fileInputRef.current?.click()
           }}
           className={styles.form__image_edit}
