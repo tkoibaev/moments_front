@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import styles from "./AuthPage.module.scss"
 import clsx from "clsx"
 import Button from "../../components/Button"
-import { Controller, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const AuthPage = () => {
   const [signIn, toggle] = React.useState(false)
@@ -14,6 +14,11 @@ const AuthPage = () => {
 
   useEffect(() => {
     signIn ? (document.title = "Авторизация") : (document.title = "Регистарция")
+    if (signIn) {
+      resetLogin()
+    } else {
+      resetRegistration()
+    }
   }, [signIn])
 
   const registrationFormMethods = useForm({
@@ -25,13 +30,8 @@ const AuthPage = () => {
 
   const {
     register: registerRegistration,
-    handleSubmit: handleSubmitRegistration,
     formState: registrationFormState,
     reset: resetRegistration,
-    control: controlRegistration,
-    clearErrors: clearErrorsRegistration,
-    setError: setErrorRegistration,
-    setValue: setValueRegistration,
   } = registrationFormMethods
 
   const {
@@ -39,10 +39,6 @@ const AuthPage = () => {
     handleSubmit: handleSubmitLogin,
     formState: loginFormState,
     reset: resetLogin,
-    control: controlLogin,
-    clearErrors: clearErrorsLogin,
-    setError: setErrorLogin,
-    setValue: setValueLogin,
   } = loginFormMethods
 
   const { isValid: isRegistrationValid } = registrationFormState
@@ -51,7 +47,7 @@ const AuthPage = () => {
   const handleLoginSubmit = () => {
     // e.preventDefault()
     setTimeout(() => {
-      const responce = Math.random() > 0.7 // имитация ошибки на сервере с какой-то вероятностью
+      const responce = Math.random() > 0.5 // имитация ошибки на сервере с какой-то вероятностью
       if (responce) {
         console.log("Данные успешно загружены")
         navigate("/")
@@ -90,15 +86,21 @@ const AuthPage = () => {
             className={styles.form}
           >
             <h1>Регистрация</h1>
-            <div className="">
+            <div style={{ position: "relative", width: `100%` }}>
               <input
                 {...registerRegistration("regLogin", {
                   required: "Обязательное поле",
+                  maxLength: {
+                    value: 15,
+                    message: "Максимум 15 символов",
+                  },
                   pattern: {
-                    value: /^([\wа-яА-ЯёЁ]+[\s]){1,2}[\wа-яА-ЯёЁ]+$/,
-                    message: "Введите корректные данные...",
+                    value: /^[a-zA-Z0-9._]*$/,
+                    message:
+                      "В логине не допускаются специальные символы, кроме точки и подчеркивания",
                   },
                 })}
+                className={styles.form__input}
                 placeholder="Введите логин"
               />
               {registrationFormMethods.formState.errors.regLogin &&
@@ -109,7 +111,7 @@ const AuthPage = () => {
                 )}
             </div>
 
-            <div className="">
+            <div style={{ position: "relative", width: `100%` }}>
               <input
                 {...registerRegistration("regEmail", {
                   required: "Обязательное поле",
@@ -119,6 +121,7 @@ const AuthPage = () => {
                   },
                 })}
                 type="email"
+                className={styles.form__input}
                 placeholder="Введите e-mail"
               />
               {registrationFormMethods.formState.errors?.regEmail &&
@@ -133,12 +136,17 @@ const AuthPage = () => {
               <input
                 {...registerRegistration("regPassword", {
                   required: "Обязательное поле",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Введите корректный e-mail", //!!!
+                  // pattern: {
+                  //   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  //   message: "Введите корректный e-mail", //!!!
+                  // },
+                  minLength: {
+                    value: 8,
+                    message: "Минимум 8 символов",
                   },
                 })}
                 type="password"
+                className={styles.form__input}
                 placeholder="Придумайте пароль"
               />
               {registrationFormMethods.formState.errors?.regPassword &&
@@ -150,7 +158,7 @@ const AuthPage = () => {
             </div>
 
             <Button disabled={!isRegistrationValid} mode="active">
-              Зарегистрироваться
+              Регистрация
             </Button>
           </form>
         </div>
@@ -166,15 +174,21 @@ const AuthPage = () => {
             className={styles.form}
           >
             <h1>Авторизация</h1>
-            <div className="">
+            <div style={{ position: "relative", width: `100%` }}>
               <input
                 {...registerLogin("authLogin", {
                   required: "Обязательное поле",
+                  maxLength: {
+                    value: 15,
+                    message: "Максимум 15 символов",
+                  },
+
                   pattern: {
-                    value: /^([\wа-яА-ЯёЁ]+[\s]){1,2}[\wа-яА-ЯёЁ]+$/,
-                    message: "Введите корректные данные...",
+                    value: /^[a-zA-Z0-9._]*$/,
+                    message: "Логин не должен содержать специальные символы",
                   },
                 })}
+                className={styles.form__input}
                 placeholder="Введите логин"
               />
               {loginFormMethods.formState.errors?.authLogin &&
@@ -185,15 +199,20 @@ const AuthPage = () => {
                 )}
             </div>
 
-            <div className="">
+            <div style={{ position: "relative", width: `100%` }}>
               <input
                 {...registerLogin("authPassword", {
                   required: "Обязательное поле",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Введите корректный e-mail", //!!!
+                  // pattern: {
+                  //   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  //   message: "Введите корректный e-mail", //!!!
+                  // },
+                  minLength: {
+                    value: 8,
+                    message: "Минимум 8 символов",
                   },
                 })}
+                className={styles.form__input}
                 type="password"
                 placeholder="Придумайте пароль"
               />
@@ -227,8 +246,13 @@ const AuthPage = () => {
             >
               <h1>Уже есть аккаунт?</h1>
               <p>Авторизируйтесь, чтобы войти в свой профиль!</p>
-              <Button mode="light" onClick={() => toggle(true)}>
-                Авторизоваться
+              <Button
+                mode="light"
+                onClick={() => {
+                  toggle(true)
+                }}
+              >
+                Войти
               </Button>
             </div>
             <div
@@ -238,7 +262,12 @@ const AuthPage = () => {
             >
               <h1>Нет аккаунта?</h1>
               <p>Зарегистрируйтесь, чтобы всегда быть на связи!</p>
-              <Button mode="light" onClick={() => toggle(false)}>
+              <Button
+                mode="light"
+                onClick={() => {
+                  toggle(false)
+                }}
+              >
                 Регистрация
               </Button>
             </div>
