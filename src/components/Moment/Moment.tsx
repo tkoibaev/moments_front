@@ -31,16 +31,15 @@ const Moment: React.FC<MomentProps> = ({ moment }) => {
 
   return (
     <div className={styles.moment}>
-      <Link to={`/${moment.author.login}`}>
-        <div className={styles.moment__header}>
-          <AvatarComponent
-            className={styles.moment__header_avatar}
-            image={moment.author.avatar}
-          />
-          <UserLogin login={moment.author.login} />
-          <DateTag date={moment.date} />
-        </div>
-      </Link>
+      <div className={styles.moment__header}>
+        <AvatarComponent
+          className={styles.moment__header_avatar}
+          image={moment.author.avatar}
+        />
+        <UserLogin login={moment.author.login} />
+        <DateTag date={moment.date} />
+      </div>
+
       <div className={styles.moment__content}>
         <img src={moment.image} alt="" />
       </div>

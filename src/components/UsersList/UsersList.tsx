@@ -17,7 +17,7 @@ const UsersList: React.FC<UserListProps> = ({ users, title }) => {
       <ul className={styles.container__list}>
         {users &&
           users.map((user) => (
-            <li className={styles.container__list_item}>
+            <li className={styles.container__list_item} key={user.id}>
               <AvatarComponent
                 className={styles.container__list_item_avatar}
                 image={user.author.avatar}

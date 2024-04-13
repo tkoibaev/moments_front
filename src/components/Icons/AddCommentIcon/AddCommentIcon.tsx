@@ -19,12 +19,12 @@ const AddCommentIcon: React.FC<IconProps> = ({
       style={{ cursor: "pointer" }}
       //   className={classes}
     >
-      <g clip-path="url(#clip0_2162_2716)">
+      <g clipPath="url(#clip0_2162_2716)">
         <path
           d="M2.68376 3.95005L21.5703 3.95005L12.1272 20.306L9.36084 11.2374C9.32085 11.1063 9.25144 10.9861 9.15792 10.8859L2.68376 3.95005Z"
           stroke="black"
-          stroke-width="1.8"
-          stroke-linejoin="round"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
         />
       </g>
       <defs>

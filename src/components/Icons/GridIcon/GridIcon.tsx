@@ -23,8 +23,8 @@ const GridIcon: React.FC<IconProps> = ({
       <path
         d="M6.44762 1V17M1.19048 11.5524L17.1905 11.5524M11.4 1V17M1.19048 6.6L17.1905 6.6M1 1H17V17H1V1Z"
         stroke={isActive ? "#44a9f3" : "black"}
-        stroke-width="1"
-        stroke-linejoin="round"
+        strokeWidth="1"
+        strokeLinejoin="round"
       />
     </svg>
   )

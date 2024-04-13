@@ -32,7 +32,8 @@
     background-color: #fff;
     color: $brand-color;
     &:hover {
-      background-color: $brand-secondary-color-hover;
+      background-color: $brand-color;
+      color: #fff;
     }
   }
 

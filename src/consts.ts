@@ -499,14 +499,14 @@ export const MyPage = {
   id: 2,
   user: Users[0],
 
-  posts: [Moments[1], Moments[2], Moments[3], Moments[5]],
+  posts: [],
   subscribers: [
     { id: 1, author: Users[1], date: "1h" },
     { id: 2, author: Users[2], date: "30m" },
-    { id: 1, author: Users[1], date: "1h" },
-    { id: 2, author: Users[2], date: "30m" },
-    { id: 1, author: Users[1], date: "1h" },
-    { id: 2, author: Users[2], date: "30m" },
+    { id: 3, author: Users[1], date: "1h" },
+    { id: 4, author: Users[2], date: "30m" },
+    { id: 5, author: Users[1], date: "1h" },
+    { id: 6, author: Users[2], date: "30m" },
   ],
   subscriptions: [
     { id: 1, author: Users[3], date: "1h" },
@@ -520,6 +520,8 @@ export const VisitAuthor = {
   id: 2,
   user: Users[2],
   posts: [Moments[0], Moments[2], Moments[4]],
+  // posts: [],
+
   subscribers: [
     { id: 1, author: Users[1], date: "1h" },
     { id: 2, author: Users[4], date: "30m" },

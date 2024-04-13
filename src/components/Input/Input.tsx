@@ -39,7 +39,7 @@ const Input: React.FC<InputProps> = ({
         className={clsx(styles.input__block, modeClass)}
         type="text"
         placeholder={placeholder ? `${placeholder}` : "Начните поиск..."}
-      ></input>
+      />
     </div>
   )
 }

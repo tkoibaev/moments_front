@@ -25,21 +25,21 @@ const FeedIcon: React.FC<IconProps> = ({
         x2="20"
         y2="1.1"
         stroke={isActive ? "#44a9f3" : "black"}
-        stroke-width="1"
+        strokeWidth="1"
       />
       <line
         y1="8.1"
         x2="20"
         y2="8.1"
         stroke={isActive ? "#44a9f3" : "black"}
-        stroke-width="1"
+        strokeWidth="1"
       />
       <line
         y1="15.1"
         x2="20"
         y2="15.1"
         stroke={isActive ? "#44a9f3" : "black"}
-        stroke-width="1"
+        strokeWidth="1"
       />
     </svg>
   )

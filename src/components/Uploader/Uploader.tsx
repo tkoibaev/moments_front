@@ -3,12 +3,15 @@ import styles from "./Uploader.module.scss"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
 import PhotoIcon from "../../components/Icons/PhotoIcon"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 const Uploader = () => {
   const [descriptionValue, setDescriptionValue] = useState<string>("")
   const [tagValue, setTagValue] = useState<string>("")
   const [files, setFiles] = useState<FileList | null>(null)
   const [preview, setPreview] = useState<string | undefined>()
+  const navigate = useNavigate()
 
   const handleDescriptionInputChange = (value: string) => {
     setDescriptionValue(value)
@@ -30,9 +33,23 @@ const Uploader = () => {
     }
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setTimeout(() => {
+      const responce = Math.random() > 0.7 // имитация ошибки на сервере с какой-то вероятностью
+      if (responce) {
+        console.log("Данные успешно загружены")
+        navigate("/")
+      } else {
+        console.error("Ошибка при обработке запроса")
+        toast.error("Что-то пошло не так. Попробуйте еще раз")
+      }
+    }, 10) // Имитация задержки респонса
+  }
+
   return (
     <div>
-      <form action="" className={styles.form}>
+      <form onSubmit={handleSubmit} action="" className={styles.form}>
         <label className={styles["input-file"]}>
           <input
             type="file"
@@ -75,7 +92,11 @@ const Uploader = () => {
           />
         </div>
 
-        <Button disabled={!preview} type="submit" mode="active">
+        <Button
+          disabled={!preview || descriptionValue.trim() === ""}
+          type="submit"
+          mode="active"
+        >
           Опубликовать
         </Button>
       </form>

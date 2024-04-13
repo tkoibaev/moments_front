@@ -14,6 +14,7 @@ import ModalWindow from "../../components/ModalWindow"
 import UsersList from "../../components/UsersList"
 import AvatarComponent from "../../components/AvatarComponent"
 import EditProfileForm from "../../components/EditProfileForm"
+import EmptyMomentsGridList from "../../components/EmptyMomentsList"
 
 const UserPage = () => {
   const [active, setActive] = useState<"feed" | "grid">("grid")
@@ -36,6 +37,10 @@ const UserPage = () => {
       setIsMyPage(false)
       setPageInfo(VisitAuthor)
     }
+  }, [userLogin])
+
+  useEffect(() => {
+    document.title = `${userLogin}`
   }, [userLogin])
 
   useLayoutEffect(() => {
@@ -111,8 +116,20 @@ const UserPage = () => {
             height={25}
           />
         </div>
-        {active == "grid" && <MomentsGridList moments={pageInfo?.posts} />}
-        {active == "feed" && <MomentsList moments={pageInfo?.posts} />}
+        {active == "grid" &&
+          pageInfo &&
+          (pageInfo.posts.length != 0 ? (
+            <MomentsGridList moments={pageInfo.posts} />
+          ) : (
+            <EmptyMomentsGridList isMyPage={isMyPage} />
+          ))}
+        {active == "feed" &&
+          pageInfo &&
+          (pageInfo.posts.length != 0 ? (
+            <MomentsList moments={pageInfo?.posts} />
+          ) : (
+            <EmptyMomentsGridList isMyPage={isMyPage} />
+          ))}
       </div>
       <ModalWindow
         active={isSubscribersOpened}
@@ -130,7 +147,12 @@ const UserPage = () => {
         active={isEditsOpened}
         handleBackdropClick={() => setIsEditsOpened(false)}
       >
-        {pageInfo && <EditProfileForm user={pageInfo.user} />}
+        {pageInfo && (
+          <EditProfileForm
+            onSubmitSuccess={() => setIsEditsOpened(false)}
+            user={pageInfo.user}
+          />
+        )}
       </ModalWindow>
     </div>
   )

@@ -13,7 +13,7 @@ const MomentsList: React.FC<MomentsListProps> = ({ moments }) => {
       {moments ? (
         moments.map((moment) => <Moment key={moment.id} moment={moment} />)
       ) : (
-        <div>gecnjjjjjjjjjjjjjjjjj</div>
+        <div>gecnjjjjjjjjjjjjjjjjj</div> //!!! обработать пустоту
       )}
     </div>
   )

@@ -27,7 +27,7 @@ const AddIcon: React.FC<IconProps> = ({
         height="20"
         rx="5"
         stroke="black"
-        stroke-width="1.8"
+        strokeWidth="1.8"
       />
       <line
         x1="12.1"
@@ -35,8 +35,8 @@ const AddIcon: React.FC<IconProps> = ({
         x2="12.1"
         y2="17.1"
         stroke="black"
-        stroke-width="1.8"
-        stroke-linecap="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
       />
       <line
         x1="6.9"
@@ -44,8 +44,8 @@ const AddIcon: React.FC<IconProps> = ({
         x2="17.1"
         y2="11.8"
         stroke="black"
-        stroke-width="1.8"
-        stroke-linecap="round"
+        strokeWidth="1.8"
+        strokeLinecap="round"
       />
     </svg>
   )

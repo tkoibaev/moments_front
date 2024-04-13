@@ -11,7 +11,6 @@ const TagComponent: React.FC<TagComponentProps> = ({ tag }) => {
   const navigate = useNavigate()
 
   const handleClick = (value: string) => {
-    // Navigate to the search page with the query parameter
     navigate(`/search?tag=${value}`)
   }
 

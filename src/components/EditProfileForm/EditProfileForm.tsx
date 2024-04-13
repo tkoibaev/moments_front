@@ -5,12 +5,17 @@ import { Author } from "../../types"
 import AvatarComponent from "../../components/AvatarComponent"
 import AddIcon from "../../components/Icons/AddIcon"
 import Button from "../../components/Button"
+import { toast } from "react-toastify"
 
 export type EditProfileFormProps = {
   user: Author
+  onSubmitSuccess: () => void
 }
 
-const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
+const EditProfileForm: React.FC<EditProfileFormProps> = ({
+  user,
+  onSubmitSuccess,
+}) => {
   const [loginValue, setLoginValue] = useState<string>(user.login)
   const [emailValue, setEmailValue] = useState<string>(user.email)
   const [avatarImage, setAvatarImage] = useState<string>(user.avatar)
@@ -40,8 +45,22 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({ user }) => {
     }
   }, [files])
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setTimeout(() => {
+      const responce = Math.random() > 0.7 // имитация ошибки на сервере с какой-то вероятностью
+      if (responce) {
+        onSubmitSuccess()
+        console.log("Данные успешно загружены")
+      } else {
+        console.error("Ошибка при обработке запроса")
+        toast.error("Что-то пошло не так. Повторите попытку")
+      }
+    }, 10) // Имитация задержки респонса
+  }
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.form__image}>
         <AvatarComponent
           className={styles.form__image_preview}

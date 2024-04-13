@@ -19,8 +19,8 @@ const CommentIcon: React.FC<IconProps> = ({
     >
       <mask id="path-1-inside-1_2547_937" fill="white">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M21.4517 18.3816C22.435 16.7345 23 14.8088 23 12.7511C23 6.67597 18.0751 1.7511 12 1.7511C5.92487 1.7511 1 6.67597 1 12.7511C1 18.8262 5.92487 23.7511 12 23.7511C14.062 23.7511 15.9915 23.1837 17.6409 22.1966L22.8478 23.5918L21.4517 18.3816Z"
         />
       </mask>

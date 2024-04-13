@@ -29,7 +29,7 @@ const Comment: React.FC<CommentProps> = ({
       >
         <UserLogin login={author} />
         <span> {content}</span>
-        {tags && tags.map((tag) => <TagComponent tag={tag} />)}
+        {tags && tags.map((tag) => <TagComponent key={tag.id} tag={tag} />)}
       </div>
       {!isDescription && (
         <div className={styles.comment__action}>

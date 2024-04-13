@@ -17,6 +17,10 @@ const SearchPage = () => {
     console.log(tag)
   }, [])
 
+  useEffect(() => {
+    document.title = "Поиск"
+  }, [])
+
   const handleSearchInputChange = (value: string) => {
     setSearchValue(value)
   }

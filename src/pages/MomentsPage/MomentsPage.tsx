@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react"
+import { useEffect, useLayoutEffect } from "react"
 import styles from "./MomentsPage.module.scss"
 import MomentsList from "../../components/MomentsList"
 
@@ -7,6 +7,9 @@ import { Moments } from "../../consts"
 const MomentsPage = () => {
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
+  }, [])
+  useEffect(() => {
+    document.title = "Лента моментов"
   }, [])
   return (
     <div className={styles.page}>

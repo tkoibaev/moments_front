@@ -7,6 +7,8 @@ import AuthPage from "../pages/AuthPage"
 import AddMomentPage from "../pages/AddMomentPage"
 import NotificationsPage from "../pages/NotificationsPage"
 import SearchPage from "../pages/SearchPage"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
           <Route path="/search" element={<SearchPage />}></Route>
         </Routes>
       </BrowserRouter>
+      <ToastContainer autoClose={1000} pauseOnHover={true} />
     </div>
   )
 }

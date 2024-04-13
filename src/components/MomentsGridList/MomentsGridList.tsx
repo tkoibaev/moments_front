@@ -5,12 +5,14 @@ import { Moment as MomentsListType } from "types"
 import ModalWindow from "../../components/ModalWindow"
 import ModalMoment from "../../components/ModalMoment"
 import { useParams } from "react-router-dom"
+import EmptyMomentsGridList from "../EmptyMomentsList"
 
 interface MomentsListProps {
-  moments?: MomentsListType[]
+  moments: MomentsListType[]
+  isMyPage?: boolean
 }
 
-const MomentsGridList: React.FC<MomentsListProps> = ({ moments }) => {
+const MomentsGridList: React.FC<MomentsListProps> = ({ moments, isMyPage }) => {
   const [isModally, setIsModally] = useState<boolean>(false)
   const [momentForClick, setMomentForClick] = useState<MomentsListType>()
   const { userLogin } = useParams()
@@ -22,22 +24,19 @@ const MomentsGridList: React.FC<MomentsListProps> = ({ moments }) => {
   return (
     <>
       <div className={styles.container}>
-        {moments ? (
-          moments.map((moment) => (
-            <img
-              onClick={() => {
-                setMomentForClick(moment), setIsModally(true)
-              }}
-              key={moment.id}
-              src={moment.image}
-              alt={`Moment by ${moment.author.login}`}
-              className={styles.image}
-            />
-          ))
-        ) : (
-          <div>пусто</div>
-        )}
+        {moments.map((moment) => (
+          <img
+            onClick={() => {
+              setMomentForClick(moment), setIsModally(true)
+            }}
+            key={moment.id}
+            src={moment.image}
+            alt={`Moment by ${moment.author.login}`}
+            className={styles.image}
+          />
+        ))}
       </div>
+
       <ModalWindow
         handleBackdropClick={() => {
           setIsModally(false)
