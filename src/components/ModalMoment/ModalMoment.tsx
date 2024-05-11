@@ -22,7 +22,7 @@ const ModalMoment: React.FC<MomentProps> = ({ moment }) => {
     <div className={styles.moment}>
       <div className={styles.moment__desc}>
         <Comment
-          author={moment.author.login}
+          author={moment.author.username}
           content={moment.description}
           isDescription={true}
           tags={moment.tags}

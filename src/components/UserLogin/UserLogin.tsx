@@ -3,7 +3,7 @@ import styles from "./UserLogin.module.scss"
 import { Link } from "react-router-dom"
 
 export type UserLoginProps = {
-  login: string
+  login?: string
 }
 
 const UserLogin: React.FC<UserLoginProps> = ({ login }) => {

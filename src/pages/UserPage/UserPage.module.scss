@@ -15,6 +15,11 @@
 
   padding-bottom: 20px;
   border-bottom: 1px solid $strokes-color;
+
+  &__action {
+    display: flex;
+    gap: 15px;
+  }
   &__main {
     margin-bottom: 15px;
     width: 100%;

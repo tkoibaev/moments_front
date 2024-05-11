@@ -36,7 +36,7 @@ const Moment: React.FC<MomentProps> = ({ moment }) => {
           className={styles.moment__header_avatar}
           image={moment.author.avatar}
         />
-        <UserLogin login={moment.author.login} />
+        <UserLogin login={moment.author.username} />
         <DateTag date={moment.date} />
       </div>
 
@@ -51,7 +51,7 @@ const Moment: React.FC<MomentProps> = ({ moment }) => {
         {moment.likes.length} отметок "Нравится"
       </h4>
       <Comment
-        author={moment.author.login}
+        author={moment.author.username}
         content={moment.description}
         isDescription={true}
         tags={moment.tags}

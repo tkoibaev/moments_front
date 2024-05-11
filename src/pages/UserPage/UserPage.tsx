@@ -7,64 +7,122 @@ import MomentsGridList from "../../components/MomentsGridList"
 import GridIcon from "../../components/Icons/GridIcon"
 import FeedIcon from "../../components/Icons/FeedIcon"
 import { MyPage, VisitAuthor } from "../../consts"
-import { useParams } from "react-router-dom"
-import { Profile } from "../../types"
+import { useNavigate, useParams } from "react-router-dom"
+import { Author, Moment, Profile, Subs } from "../../types"
 import { AuthLogin } from "../../consts"
 import ModalWindow from "../../components/ModalWindow"
 import UsersList from "../../components/UsersList"
 import AvatarComponent from "../../components/AvatarComponent"
 import EditProfileForm from "../../components/EditProfileForm"
 import EmptyMomentsGridList from "../../components/EmptyMomentsList"
+import axios from "axios"
+import { Response } from "../../types"
+import { clearUser, useUserInfo } from "../../store/UserSlice"
+import { useDispatch } from "react-redux"
+import Cookies from "universal-cookie"
+const cookies = new Cookies()
 
 const UserPage = () => {
   const [active, setActive] = useState<"feed" | "grid">("grid")
   const [isMyPage, setIsMyPage] = useState<boolean>(false)
   const [pageInfo, setPageInfo] = useState<Profile>()
-
+  const loginUserInfo = useUserInfo() //инфа о залогиненом пользователе
   const [isSubscribersOpened, setIsSubscribersOpened] = useState(false)
   const [isSubscriptionsOpened, setIsSubscriptionsOpened] = useState(false)
   const [isEditsOpened, setIsEditsOpened] = useState(false)
 
+  const [userInfo, setUserInfo] = useState<Author>()
+  const [userSubscriptions, setUserSubscriptions] = useState<Subs[]>()
+  const [userSubscribers, setUserSubscribers] = useState<Subs[]>()
+  const [userMoments, setUserMoments] = useState<Moment[]>()
   const { userLogin } = useParams()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    setIsSubscriptionsOpened(false)
-    setIsSubscribersOpened(false)
-    if (userLogin === AuthLogin) {
-      setPageInfo(MyPage)
-      setIsMyPage(true)
-    } else {
-      setIsMyPage(false)
-      setPageInfo(VisitAuthor)
+  const getUserInfo = async () => {
+    try {
+      const response: Response = await axios(
+        `http://127.0.0.1:8000/api/user/${userLogin}/`,
+        {
+          method: "GET",
+        }
+      )
+      console.log(response.data.user)
+      setUserInfo(response.data.user)
+      setUserSubscribers(response.data.subscribers)
+      setUserSubscriptions(response.data.subscriptions)
+    } catch (error) {
+      console.log(error)
     }
-  }, [userLogin])
+  }
+
+  const getUserMoments = async () => {
+    try {
+      const response: Response = await axios(
+        `http://127.0.0.1:8000/api/moments_by_user/${userLogin}/`,
+        {
+          method: "GET",
+        }
+      )
+      setUserMoments(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const logout = async () => {
+    try {
+      const response: Response = await axios(
+        `http://localhost:8000/api/logout/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+
+      dispatch(clearUser())
+      cookies.remove("session_id", { path: "/" })
+      navigate("/login")
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     document.title = `${userLogin}`
-  }, [userLogin])
+    getUserInfo()
+    getUserMoments()
+    setIsMyPage(loginUserInfo?.username == userLogin)
+  }, [userLogin, loginUserInfo])
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, [pageInfo]) // !!! change logic
 
+  const handleLogout = () => {
+    logout()
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.profile}>
         <div className={styles.profile__main}>
-          {pageInfo?.user.avatar && (
+          {userInfo?.avatar && (
             <AvatarComponent
               className={styles.profile__main_avatar}
-              image={pageInfo?.user.avatar}
+              image={userInfo.avatar}
             />
           )}
 
           <div className={styles.profile__main_info}>
-            <h1>{pageInfo?.user.login}</h1>
+            <h1>{userInfo?.username}</h1>
             <ul className={styles.stats}>
               <li>
-                <span style={{ fontWeight: 600 }}>
-                  {pageInfo?.posts.length}
-                </span>{" "}
+                <span style={{ fontWeight: 600 }}>{userMoments?.length}</span>{" "}
                 публикаций
               </li>
               <li
@@ -72,7 +130,7 @@ const UserPage = () => {
                 style={{ cursor: "pointer" }}
               >
                 <span style={{ fontWeight: 600 }}>
-                  {pageInfo?.subscribers.length}
+                  {userSubscribers?.length}
                 </span>{" "}
                 подписчиков
               </li>
@@ -81,18 +139,21 @@ const UserPage = () => {
                 style={{ cursor: "pointer" }}
               >
                 <span style={{ fontWeight: 600 }}>
-                  {pageInfo?.subscriptions.length}
+                  {userSubscriptions?.length}
                 </span>{" "}
                 подписок
               </li>
             </ul>
           </div>
         </div>
-        <div className={styles.profile__description}>{pageInfo?.about}</div>
+        <div className={styles.profile__description}>{userInfo?.bio}</div>
         {isMyPage ? (
           <div className={styles.profile__action}>
             <Button onClick={() => setIsEditsOpened(true)} mode="passive">
               Редактировать
+            </Button>
+            <Button onClick={() => handleLogout()} mode="passive">
+              Выйти
             </Button>
           </div>
         ) : (
@@ -117,16 +178,14 @@ const UserPage = () => {
           />
         </div>
         {active == "grid" &&
-          pageInfo &&
-          (pageInfo.posts.length != 0 ? (
-            <MomentsGridList moments={pageInfo.posts} />
+          (userMoments?.length ? (
+            <MomentsGridList moments={userMoments} />
           ) : (
             <EmptyMomentsGridList isMyPage={isMyPage} />
           ))}
         {active == "feed" &&
-          pageInfo &&
-          (pageInfo.posts.length != 0 ? (
-            <MomentsList moments={pageInfo?.posts} />
+          (userMoments?.length ? (
+            <MomentsList moments={userMoments} />
           ) : (
             <EmptyMomentsGridList isMyPage={isMyPage} />
           ))}
@@ -135,22 +194,22 @@ const UserPage = () => {
         active={isSubscribersOpened}
         handleBackdropClick={() => setIsSubscribersOpened(false)}
       >
-        <UsersList users={pageInfo?.subscribers} title="Подписчики" />
+        <UsersList users={userSubscribers} title="Подписчики" />
       </ModalWindow>
       <ModalWindow
         active={isSubscriptionsOpened}
         handleBackdropClick={() => setIsSubscriptionsOpened(false)}
       >
-        <UsersList users={pageInfo?.subscriptions} title="Подписки" />
+        <UsersList reverse={true} users={userSubscriptions} title="Подписки" />
       </ModalWindow>
       <ModalWindow
         active={isEditsOpened}
         handleBackdropClick={() => setIsEditsOpened(false)}
       >
-        {pageInfo && (
+        {userInfo && (
           <EditProfileForm
             onSubmitSuccess={() => setIsEditsOpened(false)}
-            user={pageInfo.user}
+            user={userInfo}
           />
         )}
       </ModalWindow>

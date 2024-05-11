@@ -5,12 +5,17 @@ import Button from "../../components/Button"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
+import { Response } from "../../types"
+import axios from "axios"
+import { useDispatch } from "react-redux"
+import { setUser } from "../../store/UserSlice"
 
 const AuthPage = () => {
   const [signIn, toggle] = React.useState(false)
   const loginForm = useRef<HTMLFormElement>(null)
   const registrationForm = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     signIn ? (document.title = "Авторизация") : (document.title = "Регистарция")
@@ -44,32 +49,59 @@ const AuthPage = () => {
   const { isValid: isRegistrationValid } = registrationFormState
   const { isValid: isLoginValid } = loginFormState
 
-  const handleLoginSubmit = () => {
-    // e.preventDefault()
-    setTimeout(() => {
-      const responce = Math.random() > 0.5 // имитация ошибки на сервере с какой-то вероятностью
-      if (responce) {
-        console.log("Данные успешно загружены")
-        navigate("/")
-      } else {
-        console.error("Ошибка при обработке запроса")
-        toast.error("Проверьте введенные данные!")
-      }
-    }, 10) // Имитация задержки респонса
+  const handleLoginSubmit = async () => {
+    const loginData = {
+      username: loginFormMethods.getValues("authLogin"),
+      password: loginFormMethods.getValues("authPassword"),
+    }
+    try {
+      const response: Response = await axios(
+        "http://localhost:8000/api/login/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: loginData,
+          withCredentials: true,
+        }
+      )
+
+      dispatch(setUser(response.data))
+      toast.success("ура")
+      navigate("/")
+    } catch (error) {
+      console.error("Ошибка при обработке запроса", error)
+      toast.error("Проверьте введенные данные!")
+    }
   }
 
-  const handleRegisterSubmit = () => {
-    // e.preventDefault()
-    setTimeout(() => {
-      const responce = Math.random() > 0.7 // имитация ошибки на сервере с какой-то вероятностью
-      if (responce) {
-        console.log("Данные успешно загружены")
-        navigate("/")
-      } else {
-        console.error("Ошибка при обработке запроса")
-        toast.error("Проверьте введенные данные!")
-      }
-    }, 10) // Имитация задержки респонса
+  const handleRegisterSubmit = async () => {
+    const registrationData = {
+      username: registrationFormMethods.getValues("regLogin"),
+      email: registrationFormMethods.getValues("regEmail"),
+      password: registrationFormMethods.getValues("regPassword"),
+    }
+
+    try {
+      const response: Response = await axios(
+        "http://localhost:8000/api/registrate/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: registrationData,
+          withCredentials: true,
+        }
+      )
+      dispatch(setUser(response.data))
+      toast.success("Регистрация прошла успешно!")
+      navigate("/")
+    } catch (error) {
+      console.error("Ошибка при регистрации", error)
+      toast.error("Проверьте введенные данные!")
+    }
   }
 
   return (
@@ -101,7 +133,7 @@ const AuthPage = () => {
                   },
                 })}
                 className={styles.form__input}
-                placeholder="Введите логин"
+                placeholder="Придумайте логин"
               />
               {registrationFormMethods.formState.errors.regLogin &&
                 registrationFormMethods.formState.touchedFields.regLogin && (
@@ -214,7 +246,7 @@ const AuthPage = () => {
                 })}
                 className={styles.form__input}
                 type="password"
-                placeholder="Придумайте пароль"
+                placeholder="Введите пароль"
               />
               {loginFormMethods.formState.errors?.authPassword &&
                 loginFormMethods.formState.touchedFields.authPassword && (

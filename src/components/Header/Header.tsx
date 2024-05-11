@@ -8,13 +8,16 @@ import AddIcon from "../../components/Icons/AddIcon"
 import ProfileIcon from "../../components/Icons/ProfileIcon"
 import { NavLink, useLocation } from "react-router-dom"
 import { AuthLogin } from "../../consts"
+import { useDispatch, useSelector } from "react-redux"
 import clsx from "clsx"
+import { useUserInfo } from "../../store/UserSlice"
 
 export type HeaderProps = {
   className: string
 }
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
+  const userInfo = useUserInfo()
   const location = useLocation()
   if (location.pathname === "/login") {
     return null
@@ -77,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           </li>
           <li>
             <NavLink
-              to={`/${AuthLogin}`}
+              to={`/${userInfo?.username}`}
               className={({ isActive }) =>
                 isActive ? styles.active : undefined
               }

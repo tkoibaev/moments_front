@@ -11,12 +11,12 @@ const TagComponent: React.FC<TagComponentProps> = ({ tag }) => {
   const navigate = useNavigate()
 
   const handleClick = (value: string) => {
-    navigate(`/search?tag=${value}`)
+    navigate(`/search?value=${value}`)
   }
 
   return (
-    <span className={styles.tag} onClick={() => handleClick(tag.title)}>
-      #{tag.title}
+    <span className={styles.tag} onClick={() => handleClick(tag.name)}>
+      #{tag.name}
     </span>
   )
 }

@@ -31,7 +31,7 @@ const MomentsGridList: React.FC<MomentsListProps> = ({ moments, isMyPage }) => {
             }}
             key={moment.id}
             src={moment.image}
-            alt={`Moment by ${moment.author.login}`}
+            alt={`Moment by ${moment.image}`}
             className={styles.image}
           />
         ))}

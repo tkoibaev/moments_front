@@ -23,8 +23,8 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
             <Comment
               key={index}
               date={comment.date}
-              author={comment.author.login}
-              content={comment.text}
+              author={comment.author.username}
+              content={comment.content}
               isDescription={false}
             />
           ))}
@@ -37,8 +37,8 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
           <Comment
             key={index}
             date={comment.date}
-            author={comment.author.login}
-            content={comment.text}
+            author={comment.author.username}
+            content={comment.content}
             isDescription={false}
           />
         ))

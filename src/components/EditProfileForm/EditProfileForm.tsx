@@ -6,6 +6,11 @@ import AvatarComponent from "../../components/AvatarComponent"
 import AddIcon from "../../components/Icons/AddIcon"
 import Button from "../../components/Button"
 import { toast } from "react-toastify"
+import axios from "axios"
+import { Response } from "../../types"
+import { useDispatch } from "react-redux"
+import { setUser } from "../../store/UserSlice"
+import { useNavigate } from "react-router-dom"
 
 export type EditProfileFormProps = {
   user: Author
@@ -16,11 +21,13 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
   user,
   onSubmitSuccess,
 }) => {
-  const [loginValue, setLoginValue] = useState<string>(user.login)
+  const [loginValue, setLoginValue] = useState<string>(user.username)
   const [emailValue, setEmailValue] = useState<string>(user.email)
   const [avatarImage, setAvatarImage] = useState<string>(user.avatar)
   const [files, setFiles] = useState<FileList | null>(null)
   const [preview, setPreview] = useState<string | undefined>()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -45,18 +52,37 @@ const EditProfileForm: React.FC<EditProfileFormProps> = ({
     }
   }, [files])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setTimeout(() => {
-      const responce = Math.random() > 0.7 // имитация ошибки на сервере с какой-то вероятностью
-      if (responce) {
-        onSubmitSuccess()
-        console.log("Данные успешно загружены")
-      } else {
-        console.error("Ошибка при обработке запроса")
-        toast.error("Что-то пошло не так. Повторите попытку")
-      }
-    }, 10) // Имитация задержки респонса
+    const formData = new FormData()
+    formData.append("username", loginValue)
+    formData.append("email", emailValue)
+    if (files && files.length > 0) {
+      formData.append("avatar", files[0])
+    }
+
+    try {
+      const response: Response = await axios.put(
+        `http://localhost:8000/api/update_user_info/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      )
+
+      onSubmitSuccess()
+      navigate("/")
+      dispatch(setUser(response.data))
+      console.log("Данные успешно загружены")
+    } catch (error) {
+      console.error("Ошибка при отправке запроса:", error)
+      toast.error(
+        "Ошибка при отправке запроса. Проверьте соединение с интернетом."
+      )
+    }
   }
 
   return (

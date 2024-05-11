@@ -3,7 +3,7 @@ import styles from "./AvatarComponent.module.scss"
 import clsx from "clsx"
 
 export type AvatarComponentProps = {
-  image: string
+  image?: string
   className?: string
   size?: number
 }
@@ -18,7 +18,7 @@ const AvatarComponent: React.FC<AvatarComponentProps> = ({
       style={{ width: size, height: size }}
       className={clsx(styles.avatar, className)}
     >
-      <img src={image} />
+      <img src={`http://localhost:8000/${image}`} />
     </div>
   )
 }

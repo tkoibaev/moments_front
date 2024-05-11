@@ -1,19 +1,27 @@
 export interface Author {
   id: number
   email: string
-  login: string
+  username: string
   avatar: string
+  bio: string
+}
+
+export interface Subs {
+  id: number
+  author: Author
+  subscriber: Author
+  date_created: string
 }
 
 export interface Tag {
   id: number
-  title: string
+  name: string
 }
 
 export interface Comment {
   id: number
   author: Author
-  text: string
+  content: string
   date: string
 }
 
@@ -33,7 +41,7 @@ export interface Moment {
   likes: {
     id: number
     author: Author
-    date: string
+    date_created: string
   }[]
   tags: Tag[]
 }
@@ -64,3 +72,6 @@ export interface Notification {
   date: string
   type: string
 }
+
+import { AxiosResponse } from "axios"
+export type Response = Promise<AxiosResponse> | any
