@@ -16,19 +16,8 @@ const NotificationsList: React.FC<NotificationsListProps> = ({
     <div className={styles.container}>
       {notifications.length != 0 ? (
         <ul className={styles.list}>
-          {notifications.map((notification) => (
-            <Notification
-              key={notification.id}
-              type={notification.type}
-              author_login={notification.author.login}
-              author_avatar={notification.author.avatar}
-              date={notification.date}
-              post_image={
-                notification.type == "like"
-                  ? notification.post?.image
-                  : undefined
-              }
-            />
+          {notifications.map((notification, index) => (
+            <Notification key={index} notification={notification} />
           ))}
         </ul>
       ) : (

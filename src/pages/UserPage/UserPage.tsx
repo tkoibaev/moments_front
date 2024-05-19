@@ -35,22 +35,34 @@ const UserPage = () => {
   const [userSubscriptions, setUserSubscriptions] = useState<Subs[]>()
   const [userSubscribers, setUserSubscribers] = useState<Subs[]>()
   const [userMoments, setUserMoments] = useState<Moment[]>()
+  const [isSubscribed, setIsSubscribed] = useState<boolean>()
   const { userLogin } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    setIsSubscribersOpened(false)
+    setIsSubscriptionsOpened(false)
+    setIsEditsOpened(false)
+  }, [userLogin])
+
   const getUserInfo = async () => {
     try {
       const response: Response = await axios(
-        `http://127.0.0.1:8000/api/user/${userLogin}/`,
+        `http://localhost:8000/api/user/${userLogin}/`,
         {
           method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
         }
       )
       console.log(response.data.user)
       setUserInfo(response.data.user)
       setUserSubscribers(response.data.subscribers)
       setUserSubscriptions(response.data.subscriptions)
+      setIsSubscribed(response.data.is_subscribed)
     } catch (error) {
       console.log(error)
     }
@@ -59,9 +71,10 @@ const UserPage = () => {
   const getUserMoments = async () => {
     try {
       const response: Response = await axios(
-        `http://127.0.0.1:8000/api/moments_by_user/${userLogin}/`,
+        `http://localhost:8000/api/moments_by_user/${userLogin}/`,
         {
           method: "GET",
+          withCredentials: true,
         }
       )
       setUserMoments(response.data)
@@ -87,6 +100,24 @@ const UserPage = () => {
       dispatch(clearUser())
       cookies.remove("session_id", { path: "/" })
       navigate("/login")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const subscribeControll = async () => {
+    try {
+      const response: Response = await axios(
+        `http://localhost:8000/api/subscribe/${userLogin}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
+      getUserInfo()
     } catch (error) {
       console.log(error)
     }
@@ -156,9 +187,17 @@ const UserPage = () => {
               Выйти
             </Button>
           </div>
+        ) : !isSubscribed ? (
+          <div className={styles.profile__action}>
+            <Button mode="active" onClick={subscribeControll}>
+              Подписаться
+            </Button>
+          </div>
         ) : (
           <div className={styles.profile__action}>
-            <Button mode="active">Подписаться</Button>
+            <Button mode="passive" onClick={subscribeControll}>
+              Отписаться
+            </Button>
           </div>
         )}
       </div>

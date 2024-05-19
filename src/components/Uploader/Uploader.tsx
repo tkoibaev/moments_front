@@ -6,6 +6,8 @@ import PhotoIcon from "../../components/Icons/PhotoIcon"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 
+import axios from "axios"
+
 const Uploader = () => {
   const [descriptionValue, setDescriptionValue] = useState<string>("")
   const [tagValue, setTagValue] = useState<string>("")
@@ -33,23 +35,42 @@ const Uploader = () => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setTimeout(() => {
-      const responce = Math.random() > 0.7 // имитация ошибки на сервере с какой-то вероятностью
-      if (responce) {
-        console.log("Данные успешно загружены")
-        navigate("/")
-      } else {
-        console.error("Ошибка при обработке запроса")
-        toast.error("Что-то пошло не так. Попробуйте еще раз")
+  const addMoment = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // Предотвращение стандартного поведения формы
+    try {
+      const formData = new FormData()
+      formData.append("description", descriptionValue)
+      const tagsArray = tagValue.split(",")
+      tagsArray.forEach((tag) => {
+        formData.append("tag", tag)
+      })
+      if (files && files.length > 0) {
+        formData.append("image", files[0])
       }
-    }, 10) // Имитация задержки респонса
+      console.log(formData)
+      const response = await axios.post(
+        "http://localhost:8000/api/add_moment/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      )
+
+      console.log(response.data)
+      toast.success("Момент успешно добавлен")
+      navigate("/")
+    } catch (error) {
+      console.error(error)
+      toast.error("Что-то пошло не так. Попробуйте еще раз")
+    }
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit} action="" className={styles.form}>
+      <form onSubmit={addMoment} action="" className={styles.form}>
         <label className={styles["input-file"]}>
           <input
             type="file"
@@ -87,7 +108,7 @@ const Uploader = () => {
             mode="add"
             onChangeValue={handleTagInputChange}
             value={tagValue}
-            placeholder="Добавьте теги"
+            placeholder="Добавьте теги через запятую"
             searchValue={tagValue}
           />
         </div>

@@ -85,7 +85,7 @@ const AuthPage = () => {
 
     try {
       const response: Response = await axios(
-        "http://localhost:8000/api/registrate/",
+        "http://localhost:8000/api/register/",
         {
           method: "POST",
           headers: {

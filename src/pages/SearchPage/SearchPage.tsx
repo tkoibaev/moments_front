@@ -7,7 +7,7 @@ import Button from "../../components/Button"
 import { Author, Moment } from "../../types"
 import axios from "axios"
 import { Response } from "../../types"
-import UsersList from "../../components/UsersList"
+import UsersSearchList from "../../components/UsersSearchList"
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = useState<string>("")
@@ -28,9 +28,10 @@ const SearchPage = () => {
   const searchUsers = async () => {
     try {
       const response: Response = await axios(
-        `http://127.0.0.1:8000/api/users?search=${searchValue}`,
+        `http://localhost:8000/api/users?search=${searchValue}`,
         {
           method: "GET",
+          withCredentials: true,
         }
       )
       setUsersList(response.data)
@@ -40,13 +41,14 @@ const SearchPage = () => {
     }
   }
 
-  const searchMoments = async () => {
+  const searchMomentsByTags = async () => {
     try {
       console.log(searchValue)
       const response: Response = await axios(
-        `http://127.0.0.1:8000/api/moments/tag?search=${searchValue}`,
+        `http://localhost:8000/api/moments/tag?search=${searchValue}`,
         {
           method: "GET",
+          withCredentials: true,
         }
       )
       setMomentsList(response.data)
@@ -58,7 +60,7 @@ const SearchPage = () => {
 
   const handleSearch = () => {
     searchUsers()
-    searchMoments()
+    searchMomentsByTags()
   }
 
   useEffect(() => {
@@ -96,7 +98,12 @@ const SearchPage = () => {
             Поиск
           </Button>
         </div>
-        {/* <UsersList users={usersList} title="a" /> */}
+        {usersList && usersList.length > 0 ? (
+          <UsersSearchList users={usersList} />
+        ) : (
+          <h3>Пользователей не найдено</h3>
+        )}
+
         {momentsList && <MomentsGridList moments={momentsList} />}
       </div>
     </div>

@@ -23,6 +23,7 @@ export interface Comment {
   author: Author
   content: string
   date: string
+  liked_by_current_user?: boolean
 }
 
 export interface Like {
@@ -35,7 +36,7 @@ export interface Moment {
   id: number
   author: Author
   image: string
-  date: string
+  date_created: string
   description: string
   comments: Comment[]
   likes: {
@@ -44,6 +45,7 @@ export interface Moment {
     date_created: string
   }[]
   tags: Tag[]
+  liked_by_current_user?: boolean
 }
 
 export interface Profile {
@@ -65,12 +67,33 @@ export interface Profile {
   about: string
 }
 
-export interface Notification {
+//NOTIFICATIONS
+interface TargetLike {
   id: number
   author: Author
-  post?: Moment
-  date: string
-  type: string
+  date_created: string
+}
+
+interface TargetComment {
+  id: number
+  author: Author
+  date_created: string
+  content: string
+}
+
+interface TargetSubscribe {
+  id: number
+  author: Author
+  subscriber: Author
+  date_created: string
+}
+
+type NotificationType = "like" | "comment" | "subscribe"
+export interface Notification {
+  target: TargetLike | TargetComment | TargetSubscribe
+  type: NotificationType
+  moment_image?: string
+  timestamp: string
 }
 
 import { AxiosResponse } from "axios"

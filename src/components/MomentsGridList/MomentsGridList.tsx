@@ -30,8 +30,8 @@ const MomentsGridList: React.FC<MomentsListProps> = ({ moments, isMyPage }) => {
               setMomentForClick(moment), setIsModally(true)
             }}
             key={moment.id}
-            src={moment.image}
-            alt={`Moment by ${moment.image}`}
+            src={`http://localhost:8000/${moment.image}`}
+            alt={`Moment by ${moment.author.username}`}
             className={styles.image}
           />
         ))}
@@ -43,7 +43,9 @@ const MomentsGridList: React.FC<MomentsListProps> = ({ moments, isMyPage }) => {
         }}
         active={isModally}
       >
-        {momentForClick && <ModalMoment moment={momentForClick} />}
+        {momentForClick && (
+          <ModalMoment key={momentForClick.id} moment={momentForClick} />
+        )}
       </ModalWindow>
     </>
   )

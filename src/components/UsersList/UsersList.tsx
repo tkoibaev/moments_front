@@ -26,11 +26,11 @@ const UsersList: React.FC<UserListProps> = ({ users, title, reverse }) => {
             <li className={styles.container__list_item} key={user.id}>
               <AvatarComponent
                 className={styles.container__list_item_avatar}
-                image={reverse ? user.subscriber?.avatar : user.author.avatar}
+                image={!reverse ? user.subscriber?.avatar : user.author.avatar}
               />
               <UserLogin
                 login={
-                  reverse ? user.subscriber?.username : user.author.username
+                  !reverse ? user.subscriber?.username : user.author.username
                 }
               />
               <DateTag date={user.date_created} />

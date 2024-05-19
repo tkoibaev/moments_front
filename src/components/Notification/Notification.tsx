@@ -4,40 +4,54 @@ import AvatarComponent from "../../components/AvatarComponent"
 import UserLogin from "../../components/UserLogin"
 import DateTag from "../../components/DateTag"
 import Button from "../../components/Button"
+import { Notification as NotificationType } from "../../types"
+import { Link } from "react-router-dom"
 
-export type NotofocationProps = {
-  type: string
-  author_login: string
-  author_avatar: string
-  date: string
-  post_image?: string
+export type NotifocationProps = {
+  notification: NotificationType
 }
 
-const Notification: React.FC<NotofocationProps> = ({
-  type,
-  author_login,
-  author_avatar,
-  date,
-  post_image,
-}) => {
+const Notification: React.FC<NotifocationProps> = ({ notification }) => {
   return (
     <li className={styles.item}>
       <div className={styles.item_desc}>
-        <AvatarComponent className={styles.item_avatar} image={author_avatar} />
+        {notification.type == "subscribe" ? (
+          <AvatarComponent
+            className={styles.item_avatar}
+            image={notification.target.subscriber.avatar}
+          />
+        ) : (
+          <AvatarComponent
+            className={styles.item_avatar}
+            image={notification.target.author.avatar}
+          />
+        )}
         <div>
-          <UserLogin login={author_login} />
-          {type == "like" ? <p>Оценил Ваше фото</p> : <p>Подписался на Вас</p>}
-          <DateTag date={date} />
+          {notification.type == "subscribe" ? (
+            <UserLogin login={notification.target.subscriber.username} />
+          ) : (
+            <UserLogin login={notification.target.author.username} />
+          )}
+          {notification.type == "like" ? (
+            <p>Оценил Ваше фото</p>
+          ) : notification.type == "subscribe" ? (
+            <p>Подписался на Вас</p>
+          ) : (
+            <p>Прокоментировал Ваш момент</p>
+          )}
+          <DateTag date={notification.timestamp} />
         </div>
       </div>
-      {type == "like" ? (
+      {notification.type == "like" || notification.type == "comment" ? (
         <div className={styles.item_post}>
-          <img src={post_image} />
+          <img src={`http://localhost:8000/${notification.moment_image}`} />
         </div>
       ) : (
-        <Button className={styles.item_btn} mode="active">
-          Подписаться
-        </Button>
+        <Link to={`/${notification.target.subscriber.username}`}>
+          <Button className={styles.item_btn} mode="active">
+            Перейти в профиль
+          </Button>
+        </Link>
       )}
     </li>
   )

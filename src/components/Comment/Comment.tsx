@@ -8,10 +8,13 @@ import DateTag from "../../components/DateTag"
 
 export type CommentProps = {
   author: string
+  id: number
   content: string
   date?: string
   isDescription: boolean
   tags?: Tag[]
+  isLiked?: boolean
+  onLikeClick: (commentId: number) => void
 }
 
 const Comment: React.FC<CommentProps> = ({
@@ -20,6 +23,9 @@ const Comment: React.FC<CommentProps> = ({
   date,
   isDescription,
   tags,
+  id,
+  onLikeClick,
+  isLiked,
 }) => {
   return (
     <div className={styles.comment}>
@@ -35,7 +41,12 @@ const Comment: React.FC<CommentProps> = ({
         <div className={styles.comment__action}>
           {date && <DateTag date={date} />}
 
-          <LikeIcon width={25} height={25} />
+          <LikeIcon
+            isActive={isLiked}
+            onClick={() => onLikeClick(id)}
+            width={25}
+            height={25}
+          />
         </div>
       )}
     </div>

@@ -5,16 +5,16 @@ import { Moment as MomentsListType } from "types"
 
 interface MomentsListProps {
   moments?: MomentsListType[]
+  loading: boolean
 }
 
-const MomentsList: React.FC<MomentsListProps> = ({ moments }) => {
+const MomentsList: React.FC<MomentsListProps> = ({ moments, loading }) => {
   return (
     <div>
-      {moments ? (
-        moments.map((moment) => <Moment key={moment.id} moment={moment} />)
-      ) : (
-        <div>gecnjjjjjjjjjjjjjjjjj</div> //!!! обработать пустоту
-      )}
+      {moments &&
+        moments.map((moment) => (
+          <Moment loading={loading} key={moment.id} moment={moment} />
+        ))}
     </div>
   )
 }

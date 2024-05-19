@@ -7,12 +7,14 @@ interface CommentsSectionProps {
   comments: CommentType[]
   onMoreClick?: () => void
   showAll?: boolean
+  onLikeClick: (commentId: number) => void
 }
 
 const CommentsSection: React.FC<CommentsSectionProps> = ({
   comments,
   onMoreClick,
   showAll,
+  onLikeClick,
 }) => {
   const displayedComments = comments.slice(0, 3)
   return (
@@ -22,10 +24,13 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
           {displayedComments.map((comment, index) => (
             <Comment
               key={index}
+              id={comment.id}
               date={comment.date}
+              isLiked={comment.liked_by_current_user}
               author={comment.author.username}
               content={comment.content}
               isDescription={false}
+              onLikeClick={(commentId) => onLikeClick(commentId)}
             />
           ))}
           <div onClick={onMoreClick} className={styles.comment__more}>
@@ -36,10 +41,13 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({
         comments.map((comment, index) => (
           <Comment
             key={index}
+            id={comment.id}
+            isLiked={comment.liked_by_current_user}
             date={comment.date}
             author={comment.author.username}
             content={comment.content}
             isDescription={false}
+            onLikeClick={(commentId) => onLikeClick(commentId)}
           />
         ))
       )}
